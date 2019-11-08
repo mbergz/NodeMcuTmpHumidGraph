@@ -4,8 +4,8 @@ import * as CanvasJS from './canvasjs.min';
 import { LogReaderService } from './log-reader.service';
 
 @Component({
-	selector: 'app-root',
-	templateUrl: './app.component.html'
+  selector: 'app-root',
+  templateUrl: './app.component.html'
 })
 
 export class AppComponent implements OnInit {
@@ -28,30 +28,34 @@ export class AppComponent implements OnInit {
   */
   private humidInsideData = [];
   private tempOutsideData = [];
-  private humidOutsideData= [];
+  private humidOutsideData = [];
+  private stripLines = [];
+  /*
+  {
+    value: new Date(2019, 10, 26, 18, 53, 56),
+    label: "test label",
+    thickness: 1,
+    labelFontColor: "#808080"
+    //labelAlign: "near"
+  }
+  */
 
   private fanActive: boolean;
   private heaterActive: boolean;
 
-  constructor(private logReader: LogReaderService) {}
+  constructor(private logReader: LogReaderService) { }
 
   updateGraph(): void {
     this.chart = new CanvasJS.Chart("chartContainer", {
-      title:{
+      title: {
         text: "NODE MCU temp and humid controller"
       },
       zoomEnabled: true,
-      axisX:{  
-        stripLines: [{
-          value: new Date(2019, 11, 26, 18, 53, 56),
-          label: "test label",
-          thickness: 20,
-          labelFontColor: "#808080"
-          //labelAlign: "near"
-        }],
+      axisX: {
+        stripLines: this.stripLines,
         valueFormatString: "DD/MM/YY HH:mm:ss"
       },
-      axisY:[{
+      axisY: [{
         title: "Humidity",
         lineColor: "#C24642",
         tickColor: "#C24642",
@@ -107,22 +111,22 @@ export class AppComponent implements OnInit {
         showInLegend: true,
         dataPoints: this.humidOutsideData
       },
-    ]
+      ]
     });
     this.chart.render();
-    
+
     function toggleDataSeries(e) {
-        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-          e.dataSeries.visible = false;
-        } else {
-          e.dataSeries.visible = true;
-        }
-        e.chart.render();
+      if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+        e.dataSeries.visible = false;
+      } else {
+        e.dataSeries.visible = true;
+      }
+      e.chart.render();
     }
   }
 
-	ngOnInit() {
-	  this.onFetch();
+  ngOnInit() {
+    this.onFetch();
   }
 
   onFetch(): void {
@@ -130,117 +134,118 @@ export class AppComponent implements OnInit {
       let resLog = data.split('\n').filter(data => data.length != 0);
       this.calulcateNewDataPoints(resLog);
       this.updateGraph();
-    }); 
+    });
   }
 
   calulcateNewDataPoints(logData: Array<String>): void {
     this.tempInsideData = [];
     this.humidInsideData = [];
     this.tempOutsideData = [];
-    this.humidOutsideData= [];
+    this.humidOutsideData = [];
+    this.stripLines = [];
     logData.filter(logLine => logLine.includes('fanActive='))
       .forEach(logLine => {
-        const splitLogLine = logLine.split(':');  
+        const splitLogLine = logLine.split(':');
         const xData = this.getXData(splitLogLine);
-        this.tempInsideData.push( 
-          { 
-            x: xData, 
-            y: this.getYData(0,splitLogLine),
+        this.tempInsideData.push(
+          {
+            x: xData,
+            y: this.getYData(0, splitLogLine),
           }
         );
         this.humidInsideData.push(
-          this.createDataForHumidInside(xData, splitLogLine)
-        );
-        this.tempOutsideData.push( 
-          { 
-            x: xData, 
-            y: this.getYData(2,splitLogLine) 
+          {
+            x: xData,
+            y: this.getYData(1, splitLogLine)
           }
         );
-        this.humidOutsideData.push( 
-          { 
-            x: xData, 
-            y: this.getYData(3,splitLogLine) 
+        this.tempOutsideData.push(
+          {
+            x: xData,
+            y: this.getYData(2, splitLogLine)
           }
         );
-        
+        this.humidOutsideData.push(
+          {
+            x: xData,
+            y: this.getYData(3, splitLogLine)
+          }
+        );
+        this.createDataForHumidInside(xData, splitLogLine);
       });
   }
 
   private getXData(splitLogLine: Array<String>): any {
     const xArr: String[] = splitLogLine[0].split('-');
-    return new Date(Number(xArr[0]), Number(xArr[1]),Number(xArr[2]),Number(xArr[3]),Number(xArr[4]),Number(xArr[5]));
+    return new Date(Number(xArr[0]), Number(xArr[1]), Number(xArr[2]), Number(xArr[3]), Number(xArr[4]), Number(xArr[5]));
   }
-  
+
   private getYData(index: number, splitLogLine: Array<String>): any {
     const splitOfComma = splitLogLine[1].split(',');
     return Number(splitOfComma[index].split('=')[1]);
   }
 
   private createDataForHumidInside(xData: any, splitLogLine: Array<String>) {
-    let returnData: any;
     const splitOfComma = splitLogLine[1].split(',');
 
     const newFanActive = splitOfComma[4].split('=')[1] === '1';
     const newHeaterActive = splitOfComma[5].split('=')[1] === '1';
-    
+
     const fanTurnedOn = newFanActive && !this.fanActive;
-    const heaterTurnedOn = newHeaterActive !&& this.heaterActive;
+    const heaterTurnedOn = newHeaterActive! && this.heaterActive;
 
     const fanTurnedOff = !newFanActive && this.fanActive;
     const heaterTurnedOff = !newHeaterActive && this.heaterActive;
 
     if (fanTurnedOn && this.heaterActive || heaterTurnedOn && this.fanActive) {
-      returnData = { 
-        x: xData, 
-        y: this.getYData(1,splitLogLine),
-        indexLabel: "Fan + Heater ON",
-        markerColor: "red",
-        markerType: "square"
-      }
+      this.stripLines.push({
+        value: xData,
+        label: "Fan + Heater ON",
+        thickness: 2,
+        color: "#940000",
+        labelFontColor: "#808080",
+        labelAlign: "center"
+      });
     } else if (fanTurnedOn && !this.heaterActive) {
-      returnData = { 
-        x: xData, 
-        y: this.getYData(1,splitLogLine),
-        indexLabel: "Fan ON",
-        markerColor: "blue",
-        markerType: "triangle"
-      }
+      this.stripLines.push({
+        value: xData,
+        label: "Fan ON",
+        thickness: 2,
+        color: "#0003ab",
+        labelFontColor: "#808080",
+        labelAlign: "far"
+      });
     } else if (heaterTurnedOn && !this.fanActive) {
-      returnData =  { 
-        x: xData, 
-        y: this.getYData(1,splitLogLine),
-        indexLabel: "Heater ON",
-        markerColor: "orange",
-        markerType: "circle"
-      }
-    } else if(fanTurnedOff)
-      returnData =  { 
-        x: xData, 
-        y: this.getYData(1,splitLogLine),
-        indexLabel: "Fan OFF",
-        markerColor: "yellow",
-        markerType: "triangle"
-      }
-     else if (heaterTurnedOff) {
-      returnData =  { 
-        x: xData, 
-        y: this.getYData(1,splitLogLine),
-        indexLabel: "Heater OFF",
-        markerColor: "yellow",
-        markerType: "circle"
-      }
-    } else {
-      returnData = { 
-        x: xData, 
-        y: this.getYData(1,splitLogLine)
-      }
+      this.stripLines.push({
+        value: xData,
+        label: "Heater ON",
+        thickness: 2,
+        color: "#bd6800",
+        labelFontColor: "#808080",
+        labelAlign: "far"
+      });
+    } else if (fanTurnedOff) {
+      this.stripLines.push({
+        value: xData,
+        label: "Fan OFF",
+        thickness: 2,
+        color: "#b6c700",
+        labelFontColor: "#808080",
+        labelAlign: "near",
+      });
     }
-
+    else if (heaterTurnedOff) {
+      this.stripLines.push({
+        value: xData,
+        label: "Heater OFF",
+        thickness: 2,
+        color: "#b6c700",
+        labelFontColor: "#808080",
+        labelAlign: "near"
+      });
+    }
     this.fanActive = newFanActive;
     this.heaterActive = newHeaterActive;
-    return returnData;
   }
-
 
 }
