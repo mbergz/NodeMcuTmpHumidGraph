@@ -29,11 +29,7 @@ export class DataPointCalculator {
     }
 
     calulcateNewDataPoints(logData: Array<String>): void {
-        this.tempInsideData = [];
-        this.humidInsideData = [];
-        this.tempOutsideData = [];
-        this.humidOutsideData = [];
-        this.stripLines = [];
+        this.resetArrays();
         logData.filter(logLine => logLine.includes('fanActive='))
             .forEach(logLine => {
                 const splitLogLine = logLine.split(':');
@@ -46,6 +42,14 @@ export class DataPointCalculator {
 
                 this.createStripLineData(xData, splitLogLine);
             });
+    }
+
+    private resetArrays(): void {
+        this.tempInsideData = [];
+        this.humidInsideData = [];
+        this.tempOutsideData = [];
+        this.humidOutsideData = [];
+        this.stripLines = [];
     }
 
     private createDataPoint(xData: any, yIndex: number, splitLogLine: Array<String>) {
