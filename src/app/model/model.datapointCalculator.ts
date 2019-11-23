@@ -76,24 +76,30 @@ export class DataPointCalculator {
         const newHeaterActive = splitOfComma[5].split('=')[1] === '1';
 
         const fanTurnedOn = newFanActive && !this.fanActive;
-        const heaterTurnedOn = newHeaterActive! && this.heaterActive;
+        const heaterTurnedOn = newHeaterActive && !this.heaterActive;
 
         const fanTurnedOff = !newFanActive && this.fanActive;
         const heaterTurnedOff = !newHeaterActive && this.heaterActive;
 
-        if (fanTurnedOn && this.heaterActive || heaterTurnedOn && this.fanActive) {
+        if (fanTurnedOn && heaterTurnedOn) {
             this.stripLines.push(this.createStripLine(
                 xData,
                 "Fan + Heater ON",
                 "#940000",
                 "center"));
-        } else if (fanTurnedOn && !this.heaterActive) {
+        } else if (fanTurnedOff && heaterTurnedOff) {
+            this.stripLines.push(this.createStripLine(
+                xData,
+                "Fan + Heater OFF",
+                "#b6c700",
+                "near"));
+        } else if (fanTurnedOn) {
             this.stripLines.push(this.createStripLine(
                 xData,
                 "Fan ON",
                 "#0003ab",
                 "far"));
-        } else if (heaterTurnedOn && !this.fanActive) {
+        } else if (heaterTurnedOn) {
             this.stripLines.push(this.createStripLine(
                 xData,
                 "Heater ON",
