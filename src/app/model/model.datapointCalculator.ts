@@ -28,7 +28,7 @@ export class DataPointCalculator {
         return this.stripLines;
     }
 
-    calulcateNewDataPoints(logData: Array<String>): void {
+    calulcateNewDataPoints(logData: Array<string>): void {
         this.resetArrays();
         logData.filter(logLine => logLine.includes('fanActive='))
             .forEach(logLine => {
@@ -52,24 +52,24 @@ export class DataPointCalculator {
         this.stripLines = [];
     }
 
-    private createDataPoint(xData: any, yIndex: number, splitLogLine: Array<String>) {
+    private createDataPoint(xData: any, yIndex: number, splitLogLine: Array<string>) {
         return {
             x: xData,
             y: this.getYData(yIndex, splitLogLine),
         };
     }
 
-    private getXData(splitLogLine: Array<String>): any {
-        const xArr: String[] = splitLogLine[0].split('-');
+    private getXData(splitLogLine: Array<string>): any {
+        const xArr: string[] = splitLogLine[0].split('-');
         return new Date(Number(xArr[0]), Number(xArr[1]), Number(xArr[2]), Number(xArr[3]), Number(xArr[4]), Number(xArr[5]));
     }
 
-    private getYData(index: number, splitLogLine: Array<String>): any {
+    private getYData(index: number, splitLogLine: Array<string>): any {
         const splitOfComma = splitLogLine[1].split(',');
         return Number(splitOfComma[index].split('=')[1]);
     }
 
-    private createStripLineData(xData: any, splitLogLine: Array<String>) {
+    private createStripLineData(xData: any, splitLogLine: Array<string>) {
         const splitOfComma = splitLogLine[1].split(',');
 
         const newFanActive = splitOfComma[4].split('=')[1] === '1';
@@ -84,52 +84,51 @@ export class DataPointCalculator {
         if (fanTurnedOn && heaterTurnedOn) {
             this.stripLines.push(this.createStripLine(
                 xData,
-                "Fan + Heater ON",
-                "#940000",
-                "center"));
+                'Fan + Heater ON',
+                '#940000',
+                'center'));
         } else if (fanTurnedOff && heaterTurnedOff) {
             this.stripLines.push(this.createStripLine(
                 xData,
-                "Fan + Heater OFF",
-                "#b6c700",
-                "near"));
+                'Fan + Heater OFF',
+                '#b6c700',
+                'near'));
         } else if (fanTurnedOn) {
             this.stripLines.push(this.createStripLine(
                 xData,
-                "Fan ON",
-                "#0003ab",
-                "far"));
+                'Fan ON',
+                '#0003ab',
+                'far'));
         } else if (heaterTurnedOn) {
             this.stripLines.push(this.createStripLine(
                 xData,
-                "Heater ON",
-                "#bd6800",
-                "far"));
+                'Heater ON',
+                '#bd6800',
+                'far'));
         } else if (fanTurnedOff) {
             this.stripLines.push(this.createStripLine(
                 xData,
-                "Fan OFF",
-                "#b6c700",
-                "near"));
-        }
-        else if (heaterTurnedOff) {
+                'Fan OFF',
+                '#b6c700',
+                'near'));
+        } else if (heaterTurnedOff) {
             this.stripLines.push(this.createStripLine(
                 xData,
-                "Heater OFF",
-                "#b6c700",
-                "near"));
+                'Heater OFF',
+                '#b6c700',
+                'near'));
         }
         this.fanActive = newFanActive;
         this.heaterActive = newHeaterActive;
     }
 
-    private createStripLine(xData: any, label: String, color: String, align: String): any {
+    private createStripLine(xData: any, label: string, color: string, align: string): any {
         return {
             value: xData,
-            label: label,
+            label,
             thickness: 2,
-            color: color,
-            labelFontColor: "#808080",
+            color,
+            labelFontColor: '#808080',
             labelAlign: align
         };
     }

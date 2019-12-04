@@ -1,4 +1,3 @@
-/*app.component.ts*/
 import { Component, OnInit } from '@angular/core';
 import * as CanvasJS from './canvasjs.min';
 import { LogReaderService } from './log-reader.service';
@@ -18,67 +17,67 @@ export class AppComponent implements OnInit {
    }
 
   updateGraph(): void {
-    this.chart = new CanvasJS.Chart("chartContainer", {
+    this.chart = new CanvasJS.Chart('chartContainer', {
       title: {
-        text: "NODE MCU temp and humid controller"
+        text: 'NODE MCU temp and humid controller'
       },
       zoomEnabled: true,
       axisX: {
         stripLines: this.dataPointCalculator.getStripLines(),
-        valueFormatString: "DD/MM/YY HH:mm:ss"
+        valueFormatString: 'DD/MM/YY HH:mm:ss'
       },
       axisY: [{
-        title: "Humidity",
-        lineColor: "#C24642",
-        tickColor: "#C24642",
-        labelFontColor: "#C24642",
-        titleFontColor: "#C24642",
-        suffix: "%"
+        title: 'Humidity',
+        lineColor: '#C24642',
+        tickColor: '#C24642',
+        labelFontColor: '#C24642',
+        titleFontColor: '#C24642',
+        suffix: '%'
       },
       {
-        title: "Temperature",
-        lineColor: "#369EAD",
-        tickColor: "#369EAD",
-        labelFontColor: "#369EAD",
-        titleFontColor: "#369EAD",
-        suffix: "°C"
+        title: 'Temperature',
+        lineColor: '#369EAD',
+        tickColor: '#369EAD',
+        labelFontColor: '#369EAD',
+        titleFontColor: '#369EAD',
+        suffix: '°C'
       }],
       toolTip: {
         shared: true,
       },
       legend: {
-        cursor: "pointer",
+        cursor: 'pointer',
         itemclick: toggleDataSeries
       },
       data: [{
-        type: "line",
-        name: "TemperatureInside",
-        color: "#369EAD",
-        xValueFormatString: "DD/MM/YY HH:mm:ss",
+        type: 'line',
+        name: 'TemperatureInside',
+        color: '#369EAD',
+        xValueFormatString: 'DD/MM/YY HH:mm:ss',
         showInLegend: true,
         axisYIndex: 1,
         dataPoints: this.dataPointCalculator.getTempInsideData()
       },
       {
-        type: "line",
-        name: "TemperatureOutside",
-        color: "#369EAD",
+        type: 'line',
+        name: 'TemperatureOutside',
+        color: '#369EAD',
         axisYIndex: 1,
         showInLegend: true,
         dataPoints: this.dataPointCalculator.getTempOutsideData()
       },
       {
-        type: "line",
-        name: "HumidityInside",
-        color: "#C24642",
+        type: 'line',
+        name: 'HumidityInside',
+        color: '#C24642',
         axisYIndex: 0,
         showInLegend: true,
         dataPoints: this.dataPointCalculator.getHumidInsideData()
       },
       {
-        type: "line",
-        name: "HumidityOutside",
-        color: "#C24642",
+        type: 'line',
+        name: 'HumidityOutside',
+        color: '#C24642',
         axisYIndex: 0,
         showInLegend: true,
         dataPoints: this.dataPointCalculator.getHumidOutsideData()
@@ -88,7 +87,7 @@ export class AppComponent implements OnInit {
     this.chart.render();
 
     function toggleDataSeries(e) {
-      if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+      if (typeof (e.dataSeries.visible) === 'undefined' || e.dataSeries.visible) {
         e.dataSeries.visible = false;
       } else {
         e.dataSeries.visible = true;
@@ -102,13 +101,13 @@ export class AppComponent implements OnInit {
   }
 
   onFetch(): void {
-    this.logReader.readFile().subscribe(data => {
-      let resLog = data.split('\n').filter(data => data.length != 0);
+    this.logReader.readFile().subscribe(logData => {
+      const resLog = logData.split('\n').filter(data => data.length !== 0);
       this.dataPointCalculator.calulcateNewDataPoints(resLog);
       this.updateGraph();
     });
   }
 
- 
+
 
 }

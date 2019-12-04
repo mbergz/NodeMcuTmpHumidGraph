@@ -5,13 +5,14 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class LogReaderService {
-  private ENDPOINT = "http://192.168.1.2:8045/log/log";
+  //private ENDPOINT = 'http://192.168.1.2:8045/log/log';
+  private ENDPOINT = 'http://localhost:9050/tmpHumidController/rest/log';
 
   constructor(private httpClient: HttpClient) { }
 
   readFile() {
     return this.httpClient.get(
-        this.ENDPOINT, 
+        this.ENDPOINT,
         {responseType: 'text'}
       );
   }
