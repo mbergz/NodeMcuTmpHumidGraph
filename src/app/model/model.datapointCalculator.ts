@@ -1,4 +1,19 @@
+export enum DataPointTypes {
+    TEMP_INSIDE,
+    TEMP_OUTSIDE,
+    HUMID_INSIDE,
+    HUMID_OUTSIDE
+}
+
+export class DataPoint {
+    x: Date;
+    y: number;
+}
+
 export class DataPointCalculator {
+    private dataPointMap = new Map<DataPointTypes, DataPoint>();
+
+
     private tempInsideData = [];
     private humidInsideData = [];
     private tempOutsideData = [];
@@ -61,7 +76,8 @@ export class DataPointCalculator {
 
     private getXData(splitLogLine: Array<string>): any {
         const xArr: string[] = splitLogLine[0].split('-');
-        return new Date(Number(xArr[0]), Number(xArr[1]), Number(xArr[2]), Number(xArr[3]), Number(xArr[4]), Number(xArr[5]));
+        const month = Number(xArr[1]) - 1; // because lol?
+        return new Date(Number(xArr[0]), month, Number(xArr[2]), Number(xArr[3]), Number(xArr[4]), Number(xArr[5]));
     }
 
     private getYData(index: number, splitLogLine: Array<string>): any {
