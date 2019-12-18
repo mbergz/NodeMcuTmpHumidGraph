@@ -1,7 +1,11 @@
+import { Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import * as CanvasJS from '../canvasjs.min';
+import * as CanvasJS from '../../assets/canvasjs.min';
 import { LogReaderService } from '../log-reader.service';
 import { DataPointCalculator } from '../model/model.datapointCalculator';
+import { CanvjasJsService } from './canvjas.js.service';
+
 
 @Component({
   selector: 'app-graph',
@@ -9,9 +13,14 @@ import { DataPointCalculator } from '../model/model.datapointCalculator';
 })
 export class GraphComponent implements OnInit {
   private chart;
+  private canvjasJsGraph: any;
   private dataPointCalculator: DataPointCalculator;
 
-  constructor(private logReader: LogReaderService) {
+  constructor(
+    private logReader: LogReaderService,
+    //private canvajsJsService: CanvjasJsService,
+    //@Inject(DOCUMENT) private readonly document: any
+  ) {
     this.dataPointCalculator = new DataPointCalculator();
    }
 
@@ -97,6 +106,14 @@ export class GraphComponent implements OnInit {
 
   ngOnInit() {
     this.onFetch();
+    /*
+    this.canvajsJsService.lazyLoadCanvasJs().subscribe(_ => {
+      if (!this.canvjasJsGraph) {
+        CanvasJS = this.document.defaultView.CanvasJS;
+        this.updateGraph();
+      }
+    });
+    */
   }
 
   onFetch(): void {

@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { GraphComponent } from './graph/graph.component';
 import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
-
+import { AppRoutingModule } from './app-routing-module';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,7 @@ import { FooterComponent } from './common/footer/footer.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule
