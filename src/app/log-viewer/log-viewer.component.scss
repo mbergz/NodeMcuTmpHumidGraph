@@ -1,0 +1,17 @@
+.flex {
+    flex: 1 1 auto;
+    height: 72vh;
+    margin-top: 10px;
+ }
+
+ .scrollable {
+     overflow: auto;
+     box-sizing: border-box;
+     position: absolute;
+     right: 0;
+     top: 0;
+     width: 100%;
+     height: 100%;
+     white-space: pre-wrap;
+ }
+

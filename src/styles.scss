@@ -1,3 +1,7 @@
+body {
+  margin : 0;
+}
+
 .maindiv {
     min-height: 100vh;
   }
@@ -5,7 +9,7 @@
   .site{
     display: flex;
     flex-direction: column;
-    min-height: 98vh;
+    min-height: 100vh;
   }
 
   .content{

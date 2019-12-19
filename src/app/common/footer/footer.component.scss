@@ -2,3 +2,8 @@
 .footer {
   background-color: $primary;
 }
+.footer > p {
+  color: white;
+  font-size: 0.65em;
+  opacity: 0.6;
+}

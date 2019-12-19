@@ -1,10 +1,12 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <h1>{{title}}</h1>
-        <span class="menu-spacer"></span>
         <div>
+            <a class="homeButton" mat-button [routerLink]="'/'">{{title}}</a>
             <a mat-button [routerLink]="'/graph'"> Graph </a>
             <a mat-button [routerLink]="'/log'"> Log </a>
           </div>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="sub-row">
+            <span style="font-size: 12px;">{{currentLink}}</span>
     </mat-toolbar-row>
 </mat-toolbar>
