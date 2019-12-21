@@ -4,6 +4,14 @@
     height: 50px;
 }
 
+p {
+    font-size: 0.7em;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
 a {
     margin-left: 10px;
     margin-right: 10px;
@@ -11,11 +19,11 @@ a {
 }
 a.homeButton {
     margin-left: 0px;
-    font-weight: bold;
 }
 
 a, a:visited, a:hover, a:active {
     color: inherit;
+    font-size: 0.7em;
   }
 
 .dividerSpace {
