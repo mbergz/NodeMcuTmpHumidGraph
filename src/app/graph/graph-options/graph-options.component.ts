@@ -40,6 +40,13 @@ export class GraphOptionsComponent {
     }
 
     private setNewDateTime(date: Date, timeValue: string) {
+        if (!timeValue) {
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            return;
+        }
+
         const time = timeValue.split(':').length === 2 ? timeValue.concat(':00') : timeValue;
 
         const regex = /(\d{2}):(\d{2}):(\d{2})/;
