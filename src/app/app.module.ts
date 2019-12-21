@@ -3,14 +3,25 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
+
+import {
+  MatToolbarModule,
+  MatCardModule,
+  MatDividerModule,
+  MatButtonModule,
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatNativeDateModule
+} from '@angular/material';
+
 import { GraphComponent } from './graph/graph.component';
 import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { AppRoutingModule } from './app-routing-module';
 import { LogViewerComponent } from './log-viewer/log-viewer.component';
+import { GraphOptionsComponent } from './graph/graph-options/graph-options.component';
+
 
 @NgModule({
   declarations: [
@@ -18,6 +29,7 @@ import { LogViewerComponent } from './log-viewer/log-viewer.component';
     HeaderComponent,
     FooterComponent,
     GraphComponent,
+    GraphOptionsComponent,
     LogViewerComponent
   ],
   imports: [
@@ -27,7 +39,12 @@ import { LogViewerComponent } from './log-viewer/log-viewer.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

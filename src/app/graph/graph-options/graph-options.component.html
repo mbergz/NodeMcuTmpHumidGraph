@@ -1,0 +1,42 @@
+<div class="date-time-input-div">
+    <mat-form-field>
+            <input
+                matInput
+                [matDatepicker]="fromPicker"
+                placeholder="Choose a start date"
+                (dateInput)="OnFromDateChange($event.value)">
+            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+        <input
+            #fromTimeInput
+            [disabled]="!fromDate"
+            matInput
+            type="time"
+            step="1"
+            placeholder="Set Time:"
+            (focusout)="fromTimeFocusOut($event.target.value)">
+    </mat-form-field>
+</div>
+<div class="date-time-input-div">
+    <mat-form-field>
+            <input
+                matInput
+                [matDatepicker]="toPicker"
+                placeholder="Choose a end date"
+                (dateInput)="OnFromDateChange($event.value)">
+            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+            <mat-datepicker #toPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+            <input
+                #toTimeInput
+                [disabled]="!toDate"
+                matInput
+                type="time"
+                step="1"
+                placeholder="Set Time:">
+        </mat-form-field>
+</div>
+<button mat-flat-button color="primary" class="fetch-btn" (click)="onFetch()">Fetch</button>

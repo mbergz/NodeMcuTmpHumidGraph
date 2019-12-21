@@ -5,16 +5,21 @@ import * as CanvasJS from '../../assets/canvasjs.min';
 import { LogReaderService } from '../log-reader.service';
 import { DataPointCalculator } from '../model/model.datapointCalculator';
 import { CanvjasJsService } from './canvjas.js.service';
+import { fromEvent } from 'rxjs';
 
 
 @Component({
   selector: 'app-graph',
-  templateUrl: './graph.component.html'
+  templateUrl: './graph.component.html',
+  styleUrls: ['./graph.component.scss']
 })
 export class GraphComponent implements OnInit {
   private chart;
   private canvjasJsGraph: any;
   private dataPointCalculator: DataPointCalculator;
+
+  private fromDate: Date;
+  private toDate: Date;
 
   constructor(
     private logReader: LogReaderService,
@@ -22,9 +27,9 @@ export class GraphComponent implements OnInit {
     //@Inject(DOCUMENT) private readonly document: any
   ) {
     this.dataPointCalculator = new DataPointCalculator();
-   }
+  }
 
-  updateGraph(): void {
+  renderGraph(): void {
     this.chart = new CanvasJS.Chart('chartContainer', {
       title: {
         text: ''
@@ -32,7 +37,9 @@ export class GraphComponent implements OnInit {
       zoomEnabled: true,
       axisX: {
         stripLines: this.dataPointCalculator.getStripLines(),
-        valueFormatString: 'DD/MM/YY HH:mm:ss'
+        valueFormatString: 'DD/MM/YY HH:mm:ss',
+        minimum: this.getFromDate(),
+        maximum: this.getToDate()
       },
       axisY: [{
         title: 'Humidity',
@@ -105,22 +112,40 @@ export class GraphComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.onFetch();
+    this.onNewFetch();
     /*
     this.canvajsJsService.lazyLoadCanvasJs().subscribe(_ => {
       if (!this.canvjasJsGraph) {
         CanvasJS = this.document.defaultView.CanvasJS;
-        this.updateGraph();
+        this.renderGraph();
       }
     });
     */
   }
+  onNewFromDate(fromDate: Date) {
+    this.fromDate = fromDate;
+    this.renderGraph();
+  }
 
-  onFetch(): void {
+  onNewToDate(toDate: Date) {
+    this.toDate = toDate;
+    this.renderGraph();
+  }
+
+  onNewFetch(): void {
+    console.log('fetch new LOL');
     this.logReader.readFile().subscribe(logData => {
       const resLog = logData.split('\n').filter(data => data.length !== 0);
       this.dataPointCalculator.calulcateNewDataPoints(resLog);
-      this.updateGraph();
+      this.renderGraph();
     });
   }
+
+  private getFromDate(): Date {
+    return this.fromDate ? this.fromDate : this.dataPointCalculator.getInitalFromDate();
+  }
+  private getToDate(): Date {
+    return this.toDate ? this.toDate : this.dataPointCalculator.getInitalToDate();
+  }
+
 }

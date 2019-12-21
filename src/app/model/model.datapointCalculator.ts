@@ -13,6 +13,8 @@ export class DataPoint {
 export class DataPointCalculator {
     private dataPointMap = new Map<DataPointTypes, DataPoint>();
 
+    private fromDate: Date;
+    private toDate: Date;
 
     private tempInsideData = [];
     private humidInsideData = [];
@@ -22,6 +24,14 @@ export class DataPointCalculator {
 
     private fanActive: boolean;
     private heaterActive: boolean;
+
+    getInitalFromDate(): Date {
+        return this.fromDate;
+    }
+
+    getInitalToDate(): Date {
+        return this.toDate;
+    }
 
     getTempInsideData() {
         return this.tempInsideData;
@@ -45,10 +55,16 @@ export class DataPointCalculator {
 
     calulcateNewDataPoints(logData: Array<string>): void {
         this.resetArrays();
-        logData.filter(logLine => logLine.includes('fanActive='))
-            .forEach(logLine => {
+        const filteredList = logData.filter(logLine => logLine.includes('fanActive='));
+        filteredList.forEach( (logLine, index) => {
                 const splitLogLine = logLine.split(':');
                 const xData = this.getXData(splitLogLine);
+
+                if (index === 0) {
+                    this.fromDate = xData;
+                } else if (index === (filteredList.length - 1)) {
+                    this.toDate = xData;
+                }
 
                 this.tempInsideData.push(this.createDataPoint(xData, 0, splitLogLine));
                 this.humidInsideData.push(this.createDataPoint(xData, 1, splitLogLine));
