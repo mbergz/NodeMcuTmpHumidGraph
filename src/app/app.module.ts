@@ -18,7 +18,10 @@ import {
 import { GraphComponent } from './graph/graph.component';
 import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
-import { AppRoutingModule } from './app-routing-module';
+
+import { AppRoutingModule, CustomReuseStrategy } from './app-routing-module';
+import { RouteReuseStrategy } from '@angular/router';
+
 import { LogViewerComponent } from './log-viewer/log-viewer.component';
 import { GraphOptionsComponent } from './graph/graph-options/graph-options.component';
 
@@ -46,7 +49,11 @@ import { GraphOptionsComponent } from './graph/graph-options/graph-options.compo
     MatInputModule,
     MatNativeDateModule
   ],
-  providers: [],
+  providers: [
+    {
+       provide: RouteReuseStrategy, useClass: CustomReuseStrategy
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

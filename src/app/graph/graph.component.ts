@@ -6,6 +6,7 @@ import { LogReaderService } from '../log-reader.service';
 import { DataPointCalculator } from '../model/model.datapointCalculator';
 import { CanvjasJsService } from './canvjas.js.service';
 import { fromEvent } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({

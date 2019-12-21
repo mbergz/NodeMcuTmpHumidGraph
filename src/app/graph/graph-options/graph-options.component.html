@@ -25,7 +25,7 @@
                 matInput
                 [matDatepicker]="toPicker"
                 placeholder="Choose a end date"
-                (dateInput)="OnFromDateChange($event.value)">
+                (dateInput)="OnToDateChange($event.value)">
             <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
             <mat-datepicker #toPicker></mat-datepicker>
     </mat-form-field>
@@ -36,7 +36,8 @@
                 matInput
                 type="time"
                 step="1"
-                placeholder="Set Time:">
+                placeholder="Set Time:"
+                (focusout)="toTimeFocusOut($event.target.value)">
         </mat-form-field>
 </div>
 <button mat-flat-button color="primary" class="fetch-btn" (click)="onFetch()">Fetch</button>

@@ -24,13 +24,11 @@ export class GraphOptionsComponent {
     }
 
     OnFromDateChange(fromDate: Date) {
-        console.log(fromDate);
         this.fromDate = fromDate;
         this.newFromDate.emit(this.fromDate);
     }
 
     OnToDateChange(toDate: Date) {
-        console.log(toDate);
         this.toDate = toDate;
         this.newToDate.emit(this.toDate);
     }
