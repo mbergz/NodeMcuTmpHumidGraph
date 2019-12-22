@@ -23,7 +23,15 @@
             placeholder="Set Time:"
             (focusout)="fromTimeFocusOut($event.target.value)">
     </mat-form-field>
-    <button mat-flat-button color="warn" class="reset-btn" (click)="onResetFrom()">Reset</button>
+    <button
+        mat-flat-button
+        [disabled]="!fromDate"
+        color="warn"
+        class="reset-btn"
+        (click)="onResetFrom()"
+    >
+        Reset
+    </button>
     </fieldset>
 </div>
 <div class="date-time-input-div" id="right-input">
@@ -49,7 +57,15 @@
                 placeholder="Set Time:"
                 (focusout)="toTimeFocusOut($event.target.value)">
         </mat-form-field>
-        <button mat-flat-button color="warn" class="reset-btn" (click)="onResetTo()">Reset</button>
+        <button
+            mat-flat-button
+            [disabled]="!toDate"
+            color="warn"
+            class="reset-btn"
+            (click)="onResetTo()"
+        >
+            Reset
+        </button>
     </fieldset>
 </div>
 </div>
