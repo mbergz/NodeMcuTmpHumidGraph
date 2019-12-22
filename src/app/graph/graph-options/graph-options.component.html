@@ -1,14 +1,19 @@
-<div class="date-time-input-div">
+<div class="outer-div">
+    <div class="date-time-input-div"  id="left-input">
+    <fieldset>
+    <legend>From date</legend>
     <mat-form-field>
             <input
                 matInput
                 [matDatepicker]="fromPicker"
                 placeholder="Choose a start date"
-                (dateInput)="OnFromDateChange($event.value)">
+                [(ngModel)]="fromDate"
+                (ngModelChange)="onFromDateChange($event)"
+                >
             <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
             <mat-datepicker #fromPicker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="time-input">
         <input
             #fromTimeInput
             [disabled]="!fromDate"
@@ -18,18 +23,23 @@
             placeholder="Set Time:"
             (focusout)="fromTimeFocusOut($event.target.value)">
     </mat-form-field>
+    <button mat-flat-button color="warn" class="reset-btn" (click)="onResetFrom()">Reset</button>
+    </fieldset>
 </div>
-<div class="date-time-input-div">
+<div class="date-time-input-div" id="right-input">
+    <fieldset>
+    <legend>To date</legend>
     <mat-form-field>
             <input
                 matInput
                 [matDatepicker]="toPicker"
                 placeholder="Choose a end date"
-                (dateInput)="OnToDateChange($event.value)">
+                [(ngModel)]="toDate"
+                (dateInput)="onToDateChange($event)">
             <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
             <mat-datepicker #toPicker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="time-input">
             <input
                 #toTimeInput
                 [disabled]="!toDate"
@@ -39,5 +49,10 @@
                 placeholder="Set Time:"
                 (focusout)="toTimeFocusOut($event.target.value)">
         </mat-form-field>
+        <button mat-flat-button color="warn" class="reset-btn" (click)="onResetTo()">Reset</button>
+    </fieldset>
 </div>
-<button mat-flat-button color="primary" class="fetch-btn" (click)="onFetch()">Fetch</button>
+</div>
+<div>
+    <button mat-flat-button color="primary" class="fetch-btn" (click)="onFetch()">Fetch</button>
+</div>

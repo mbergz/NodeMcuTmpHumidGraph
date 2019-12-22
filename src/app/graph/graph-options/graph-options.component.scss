@@ -1,9 +1,48 @@
+@import "~_variables.scss";
+
 button {
     margin-left: 10px;
     margin-right: 10px;
 }
 
+.fetch-btn {
+    display: inline-block;
+    padding: 5px 20px;
+    margin: 20px;
+}
+
 mat-form-field {
     margin-left: 10px;
     margin-right: 10px;
+}
+
+#left-input {
+    margin-left: 140px;
+}
+
+#right-input {
+    margin-right: 140px;
+}
+
+.outer-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.date-time-input-div {
+    display: inline-block;
+}
+
+.time-input {
+    margin-right: 40px;
+}
+
+fieldset {
+    border: 1px solid $primary;
+}
+
+legend {
+    color: $primary;
+    text-align: left;
 }
