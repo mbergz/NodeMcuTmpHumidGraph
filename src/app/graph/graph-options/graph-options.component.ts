@@ -8,6 +8,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class GraphOptionsComponent {
     private fromDate: Date;
     private toDate: Date;
+    private autoUpdateChecked: boolean;
 
     @Output() fetchNew = new EventEmitter<void>();
     @Output() newFromDate = new EventEmitter<Date>();

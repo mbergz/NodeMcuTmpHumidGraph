@@ -68,7 +68,21 @@
         </button>
     </fieldset>
 </div>
-</div>
-<div>
-    <button mat-flat-button color="primary" class="fetch-btn" (click)="onFetch()">Fetch</button>
+    <fieldset class="auto-update-fieldset">
+        <legend>Auto update graph</legend>
+            <mat-checkbox
+                [(ngModel)]="autoUpdateChecked"
+            >
+                Enable
+            </mat-checkbox>
+        <mat-form-field>
+                <input
+                    matInput
+                    placeholder="Interval (ms)"
+                    >
+        </mat-form-field>
+    </fieldset>
+    <div>
+            <button mat-flat-button color="primary" class="fetch-btn" (click)="onFetch()">Fetch</button>
+        </div>
 </div>

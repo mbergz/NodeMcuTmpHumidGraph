@@ -13,7 +13,8 @@ import {
   MatDatepickerModule,
   MatFormFieldModule,
   MatInputModule,
-  MatNativeDateModule
+  MatNativeDateModule, 
+  MatCheckboxModule
 } from '@angular/material';
 
 import { GraphComponent } from './graph/graph.component';
@@ -48,8 +49,9 @@ import { GraphOptionsComponent } from './graph/graph-options/graph-options.compo
     MatButtonModule,
     MatDatepickerModule,
     MatFormFieldModule,
+    MatNativeDateModule,
     MatInputModule,
-    MatNativeDateModule
+    MatCheckboxModule
   ],
   providers: [
     {

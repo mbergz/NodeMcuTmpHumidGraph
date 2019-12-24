@@ -7,8 +7,9 @@ button {
 
 .fetch-btn {
     display: inline-block;
-    padding: 5px 20px;
-    margin: 20px;
+    padding: 10px 40px 10px 40px;
+    margin-top: 45px;
+    margin-left: 20px;
 }
 
 mat-form-field {
@@ -17,17 +18,17 @@ mat-form-field {
 }
 
 #left-input {
-    margin-left: 140px;
+    margin-left: 100px;
 }
 
 #right-input {
-    margin-right: 140px;
+    margin-left: 20px;
+    margin-right: 40px;
 }
 
 .outer-div {
     width: 100%;
     display: flex;
-    justify-content: space-between;
 }
 
 .date-time-input-div {
@@ -40,6 +41,10 @@ mat-form-field {
 
 fieldset {
     border: 1px solid $primary;
+}
+
+.auto-update-fieldset {
+    margin-left: 20px;
 }
 
 legend {
