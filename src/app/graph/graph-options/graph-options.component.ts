@@ -9,10 +9,12 @@ export class GraphOptionsComponent {
     private fromDate: Date;
     private toDate: Date;
     private autoUpdateChecked: boolean;
+    private updateIntervalMs: number;
 
     @Output() fetchNew = new EventEmitter<void>();
     @Output() newFromDate = new EventEmitter<Date>();
     @Output() newToDate = new EventEmitter<Date>();
+    @Output() updateInterval = new EventEmitter<number>();
 
     fromTimeFocusOut(timeValue: string) {
         this.setNewDateTime(this.fromDate, timeValue);
@@ -44,6 +46,17 @@ export class GraphOptionsComponent {
 
     onFetch(): void {
         this.fetchNew.emit();
+    }
+
+    onUpdateCheckBox() {
+        if (!this.autoUpdateChecked) {
+            this.updateIntervalMs = undefined;
+            this.updateInterval.emit(this.updateIntervalMs)
+        }
+    }
+
+    onUpdateIntervalChange() {
+        this.updateInterval.emit(this.updateIntervalMs);
     }
 
     private setNewDateTime(date: Date, timeValue: string) {

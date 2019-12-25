@@ -72,11 +72,15 @@
         <legend>Auto update graph</legend>
             <mat-checkbox
                 [(ngModel)]="autoUpdateChecked"
+                (change)="onUpdateCheckBox()"
             >
                 Enable
             </mat-checkbox>
         <mat-form-field>
                 <input
+                    [disabled]="!autoUpdateChecked"
+                    [(ngModel)]="updateIntervalMs"
+                    (change)="onUpdateIntervalChange()"
                     matInput
                     placeholder="Interval (ms)"
                     >

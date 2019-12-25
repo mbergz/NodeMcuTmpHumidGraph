@@ -5,8 +5,10 @@ import * as CanvasJS from '../../assets/canvasjs.min';
 import { LogReaderService } from '../log-reader.service';
 import { DataPointCalculator } from '../model/model.datapointCalculator';
 import { CanvjasJsService } from './canvjas.js.service';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { timer, Observable, Subject } from 'rxjs';
+import { switchMap, takeUntil, catchError } from 'rxjs/operators'; 
 
 
 @Component({
@@ -21,6 +23,7 @@ export class GraphComponent implements OnInit {
 
   private fromDate: Date;
   private toDate: Date;
+  private subscription: Subscription;
 
   constructor(
     private logReader: LogReaderService,
@@ -133,13 +136,24 @@ export class GraphComponent implements OnInit {
     this.renderGraph();
   }
 
+  onNewUpdateInterval(newInterval: number) {
+    if (this.subscription || !newInterval) {
+      this.subscription.unsubscribe();
+    }
+    this.subscription = timer(0, newInterval)
+    .pipe(
+      switchMap(() => this.logReader.readFile()))
+      .subscribe(log => this.handleLogData(log));
+  }
+
   onNewFetch(): void {
-    console.log('fetch new LOL');
-    this.logReader.readFile().subscribe(logData => {
-      const resLog = logData.split('\n').filter(data => data.length !== 0);
-      this.dataPointCalculator.calulcateNewDataPoints(resLog);
-      this.renderGraph();
-    });
+    this.logReader.readFile().subscribe(log => this.handleLogData(log));
+  }
+
+  private handleLogData(log: string) {
+    const resLog = log.split('\n').filter(data => data.length !== 0);
+    this.dataPointCalculator.calulcateNewDataPoints(resLog);
+    this.renderGraph();
   }
 
   private getFromDate(): Date {
