@@ -6,10 +6,10 @@ import { Component, Output, EventEmitter } from '@angular/core';
     styleUrls: ['./graph-options.component.scss']
   })
 export class GraphOptionsComponent {
-    private fromDate: Date;
-    private toDate: Date;
-    private autoUpdateChecked: boolean;
-    private updateIntervalMs: number;
+    fromDate: Date;
+    toDate: Date;
+    autoUpdateChecked: boolean;
+    updateIntervalMs: number;
 
     @Output() fetchNew = new EventEmitter<void>();
     @Output() newFromDate = new EventEmitter<Date>();

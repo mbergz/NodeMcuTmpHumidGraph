@@ -41,7 +41,7 @@ export class GraphComponent implements OnInit {
       zoomEnabled: true,
       axisX: {
         stripLines: this.dataPointCalculator.getStripLines(),
-        valueFormatString: 'DD/MM/YY HH:mm:ss',
+        valueFormatString: 'YY/MM/DD HH:mm:ss',
         minimum: this.getFromDate(),
         maximum: this.getToDate()
       },
@@ -72,7 +72,7 @@ export class GraphComponent implements OnInit {
         type: 'line',
         name: 'TemperatureInside',
         color: '#369EAD',
-        xValueFormatString: 'DD/MM/YY HH:mm:ss',
+        xValueFormatString: 'YY/MM/DD HH:mm:ss',
         showInLegend: true,
         axisYIndex: 1,
         dataPoints: this.dataPointCalculator.getTempInsideData()

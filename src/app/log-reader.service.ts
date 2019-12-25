@@ -14,12 +14,12 @@ export class LogReaderService {
   constructor(private httpClient: HttpClient) { }
 
   readFile() {
-    return of(this.getTest());
-   /* return this.httpClient.get(
+    //return of(this.getTest());
+    return this.httpClient.get(
       this.ENDPOINT,
       { responseType: 'text' }
     );
-    */
+    
   }
 
   getTest(): string {

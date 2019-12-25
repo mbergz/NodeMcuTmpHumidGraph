@@ -7,10 +7,10 @@ import { LogReaderService } from '../log-reader.service';
     styleUrls:  ['./log-viewer.component.scss']
   })
   export class LogViewerComponent {
-    private log;
+    log: string;
 
     constructor(private logReader: LogReaderService) {
-        this.log = this.logReader.getTest();
+        this.logReader.readFile().subscribe(log => this.log = log);
     }
 
 }
