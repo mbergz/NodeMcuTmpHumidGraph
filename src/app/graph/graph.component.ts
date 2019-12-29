@@ -5,10 +5,10 @@ import * as CanvasJS from '../../assets/canvasjs.min';
 import { LogReaderService } from '../log-reader.service';
 import { DataPointCalculator } from '../model/model.datapointCalculator';
 import { CanvjasJsService } from './canvjas.js.service';
-import { fromEvent, Subscription } from 'rxjs';
+import { fromEvent, Subscription, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { timer, Observable, Subject } from 'rxjs';
-import { switchMap, takeUntil, catchError } from 'rxjs/operators'; 
+import { switchMap, takeUntil, catchError, finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -20,6 +20,7 @@ export class GraphComponent implements OnInit {
   private chart;
   private canvjasJsGraph: any;
   private dataPointCalculator: DataPointCalculator;
+  isGraphLoading: boolean;
 
   private fromDate: Date;
   private toDate: Date;
@@ -116,6 +117,7 @@ export class GraphComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.renderGraph();
     this.onNewFetch();
     /*
     this.canvajsJsService.lazyLoadCanvasJs().subscribe(_ => {
@@ -147,7 +149,15 @@ export class GraphComponent implements OnInit {
   }
 
   onNewFetch(): void {
-    this.logReader.readFile().subscribe(log => this.handleLogData(log));
+    this.isGraphLoading = true;
+
+    this.logReader.readFile()
+    .subscribe(log => {
+        this.isGraphLoading = false;
+        this.handleLogData(log);
+    }, error =>  {
+      console.log(error);
+    });
   }
 
   private handleLogData(log: string) {
