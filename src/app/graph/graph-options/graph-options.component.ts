@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
     selector: 'app-options-graph',
@@ -11,6 +11,7 @@ export class GraphOptionsComponent {
     autoUpdateChecked: boolean;
     updateIntervalMs: number;
 
+    @Input() disabled: boolean;
     @Output() fetchNew = new EventEmitter<void>();
     @Output() newFromDate = new EventEmitter<Date>();
     @Output() newToDate = new EventEmitter<Date>();

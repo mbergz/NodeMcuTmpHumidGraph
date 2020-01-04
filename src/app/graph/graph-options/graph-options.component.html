@@ -5,6 +5,7 @@
     <mat-form-field>
             <input
                 matInput
+                [disabled]="disabled"
                 [matDatepicker]="fromPicker"
                 placeholder="Choose a start date"
                 [(ngModel)]="fromDate"
@@ -40,6 +41,7 @@
     <mat-form-field>
             <input
                 matInput
+                [disabled]="disabled"
                 [matDatepicker]="toPicker"
                 placeholder="Choose a end date"
                 [(ngModel)]="toDate"
@@ -71,6 +73,7 @@
     <fieldset class="auto-update-fieldset">
         <legend>Auto update graph</legend>
             <mat-checkbox
+                [disabled]="disabled"
                 [(ngModel)]="autoUpdateChecked"
                 (change)="onUpdateCheckBox()"
             >
@@ -87,6 +90,11 @@
         </mat-form-field>
     </fieldset>
     <div>
-            <button mat-flat-button color="primary" class="fetch-btn" (click)="onFetch()">Fetch</button>
+            <button 
+                mat-flat-button color="primary" 
+                class="fetch-btn" 
+                (click)="onFetch()"
+                [disabled]="disabled"
+            >Fetch</button>
         </div>
 </div>

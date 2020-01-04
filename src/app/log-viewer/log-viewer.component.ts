@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LogReaderService } from '../log-reader.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-log-viewer',
@@ -7,10 +8,10 @@ import { LogReaderService } from '../log-reader.service';
     styleUrls:  ['./log-viewer.component.scss']
   })
   export class LogViewerComponent {
-    log: string;
+    logReaderService$: Observable<string>;
 
     constructor(private logReader: LogReaderService) {
-        this.logReader.readFile().subscribe(log => this.log = log);
+        this.logReaderService$ = this.logReader.readFile();
     }
 
 }

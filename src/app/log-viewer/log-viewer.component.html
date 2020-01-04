@@ -1,5 +1,14 @@
-<mat-card class="flex">
-    <div class="scrollable">
-        {{log}}
-    </div>
-</mat-card>
+<div class="outer">
+    <mat-card 
+        class="flex"
+        *ngIf="logReaderService$ | async as log; else loading">
+        <div class="scrollable">
+            {{log}}
+        </div>
+    </mat-card>
+    <ng-template #loading>
+        <div class="spinner">
+            <mat-spinner></mat-spinner>
+        </div>
+    </ng-template>
+</div>
