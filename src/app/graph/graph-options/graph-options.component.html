@@ -1,75 +1,84 @@
 <div class="outer-div">
     <div class="date-time-input-div"  id="left-input">
-    <fieldset>
-    <legend>From date</legend>
-    <mat-form-field>
+        <fieldset>
+        <legend>From date</legend>
+        <mat-form-field>
+                <input
+                    matInput
+                    [disabled]="disabled"
+                    [matDatepicker]="fromPicker"
+                    placeholder="Choose a start date"
+                    [(ngModel)]="fromDate"
+                    (ngModelChange)="onFromDateChange($event)"
+                    >
+                <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="time-input">
             <input
-                matInput
-                [disabled]="disabled"
-                [matDatepicker]="fromPicker"
-                placeholder="Choose a start date"
-                [(ngModel)]="fromDate"
-                (ngModelChange)="onFromDateChange($event)"
-                >
-            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
-            <mat-datepicker #fromPicker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field class="time-input">
-        <input
-            #fromTimeInput
-            [disabled]="!fromDate"
-            matInput
-            type="time"
-            step="1"
-            placeholder="Set Time:"
-            (focusout)="fromTimeFocusOut($event.target.value)">
-    </mat-form-field>
-    <button
-        mat-flat-button
-        [disabled]="!fromDate"
-        color="warn"
-        class="reset-btn"
-        (click)="onResetFrom()"
-    >
-        Reset
-    </button>
-    </fieldset>
-</div>
-<div class="date-time-input-div" id="right-input">
-    <fieldset>
-    <legend>To date</legend>
-    <mat-form-field>
-            <input
-                matInput
-                [disabled]="disabled"
-                [matDatepicker]="toPicker"
-                placeholder="Choose a end date"
-                [(ngModel)]="toDate"
-                (dateInput)="onToDateChange($event)">
-            <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
-            <mat-datepicker #toPicker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field class="time-input">
-            <input
-                #toTimeInput
-                [disabled]="!toDate"
+                #fromTimeInput
+                [disabled]="!fromDate"
                 matInput
                 type="time"
                 step="1"
                 placeholder="Set Time:"
-                (focusout)="toTimeFocusOut($event.target.value)">
+                (focusout)="fromTimeFocusOut($event.target.value)">
         </mat-form-field>
         <button
             mat-flat-button
-            [disabled]="!toDate"
+            [disabled]="!fromDate"
             color="warn"
             class="reset-btn"
-            (click)="onResetTo()"
+            (click)="onResetFrom()"
         >
             Reset
         </button>
-    </fieldset>
-</div>
+        </fieldset>
+    </div>
+    <div class="date-time-input-div" id="right-input">
+        <fieldset>
+        <legend>To date</legend>
+        <mat-form-field>
+                <input
+                    matInput
+                    [disabled]="disabled"
+                    [matDatepicker]="toPicker"
+                    placeholder="Choose a end date"
+                    [(ngModel)]="toDate"
+                    (dateInput)="onToDateChange($event)">
+                <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="time-input">
+                <input
+                    #toTimeInput
+                    [disabled]="!toDate"
+                    matInput
+                    type="time"
+                    step="1"
+                    placeholder="Set Time:"
+                    (focusout)="toTimeFocusOut($event.target.value)">
+            </mat-form-field>
+            <button
+                mat-flat-button
+                [disabled]="!toDate"
+                color="warn"
+                class="reset-btn"
+                (click)="onResetTo()"
+            >
+                Reset
+            </button>
+        </fieldset>
+    </div>
+    <div>
+        <button 
+            mat-flat-button color="primary" 
+            class="fetch-btn" 
+            (click)="onFetch()"
+            [disabled]="disabled"
+        >Fetch</button>
+    </div>
+    <div class="spacer"></div>
     <fieldset class="auto-update-fieldset">
         <legend>Auto update graph</legend>
             <mat-checkbox
@@ -89,12 +98,4 @@
                     >
         </mat-form-field>
     </fieldset>
-    <div>
-            <button 
-                mat-flat-button color="primary" 
-                class="fetch-btn" 
-                (click)="onFetch()"
-                [disabled]="disabled"
-            >Fetch</button>
-        </div>
 </div>

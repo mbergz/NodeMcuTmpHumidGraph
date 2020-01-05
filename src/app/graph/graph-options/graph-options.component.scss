@@ -12,6 +12,11 @@ button {
     margin-left: 30px;
 }
 
+.spacer {
+    flex-grow: 1;
+}
+
+
 mat-form-field {
     margin-left: 10px;
     margin-right: 10px;
@@ -23,7 +28,7 @@ mat-form-field {
 
 #right-input {
     margin-left: 20px;
-    margin-right: 40px;
+    margin-right: 20px;
 }
 
 .outer-div {
@@ -44,7 +49,7 @@ fieldset {
 }
 
 .auto-update-fieldset {
-    margin-left: 30px;
+    margin-right: 50px;
 }
 
 legend {
