@@ -130,12 +130,10 @@ export class GraphComponent implements OnInit {
   }
   onNewFromDate(fromDate: Date) {
     this.fromDate = fromDate;
-    this.renderGraph();
   }
 
   onNewToDate(toDate: Date) {
     this.toDate = toDate;
-    this.renderGraph();
   }
 
   onNewUpdateInterval(newInterval: number) {
