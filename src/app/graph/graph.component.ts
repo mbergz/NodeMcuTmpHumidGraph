@@ -81,7 +81,7 @@ export class GraphComponent implements OnInit {
       {
         type: 'line',
         name: 'TemperatureOutside',
-        color: '#369EAD',
+        color: '#36ad72',
         axisYIndex: 1,
         showInLegend: true,
         dataPoints: this.dataPointCalculator.getTempOutsideData()
@@ -97,7 +97,7 @@ export class GraphComponent implements OnInit {
       {
         type: 'line',
         name: 'HumidityOutside',
-        color: '#C24642',
+        color: '#e89907',
         axisYIndex: 0,
         showInLegend: true,
         dataPoints: this.dataPointCalculator.getHumidOutsideData()
