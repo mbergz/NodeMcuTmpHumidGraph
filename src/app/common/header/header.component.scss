@@ -12,6 +12,28 @@ p {
     flex-grow: 1;
 }
 
+.hamburger {
+    display: none;
+}
+
+.mat-toolbar-multiple-rows {
+    min-height: 50px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .hamburger {
+        display: block;
+    }
+
+    .fullscreen a:not(:first-child){
+        display: none;
+    }
+
+    .version-number, .sub-row{
+        display: none;
+    }
+}
+
 a {
     margin-right: 10px;
     text-decoration: none;
