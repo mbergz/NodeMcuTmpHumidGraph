@@ -12,6 +12,15 @@ p {
     flex-grow: 1;
 }
 
+ul {
+    list-style-type: none;
+    padding: 0px;
+  } 
+
+li {
+    float: left;
+}
+
 .hamburger {
     display: none;
 }
@@ -25,7 +34,24 @@ p {
         display: block;
     }
 
-    .fullscreen a:not(:first-child){
+    ul {
+        background-color: $primary;
+        z-index: 1;
+    }
+
+    ul.open {
+        margin-top: 95px;
+    }
+
+    ul.open > li:not(:first-child) {
+        display: block;
+    }
+
+    li {
+        float: none;
+    }
+
+    li:not(:first-child){
         display: none;
     }
 

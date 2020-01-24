@@ -1,12 +1,12 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row class="top-menu-bar">
-        <div class="fullscreen">
-            <a class="homeButton" mat-button [routerLink]="'/'">{{title}}</a>
-            <a mat-button [routerLink]="'/graph'"> Graph </a>
-            <a mat-button [routerLink]="'/log'"> Log </a>
-        </div>
+        <ul [ngClass]="menuBarOpen ? 'open' : '' ">
+            <li><a class="homeButton" mat-button [routerLink]="'/'">{{title}}</a></li>
+            <li><a mat-button [routerLink]="'/graph'"> Graph </a></li>
+            <li><a mat-button [routerLink]="'/log'"> Log </a></li>
+        </ul>
         <div class="spacer"></div>
-        <button mat-button class="hamburger">
+        <button mat-button class="hamburger" (click)="onHamburgerClick()">
             <mat-icon>menu</mat-icon>
         </button>
         <p class="version-number">v.1.1-beta</p>

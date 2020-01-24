@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
     @Input() title: string;
     currentLink: string;
+    menuBarOpen: boolean;
 
     private linkTextMap = new Map([
        [ '/graph', 'Graphical overview' ],
@@ -19,6 +20,11 @@ export class HeaderComponent {
         this.router.events.subscribe((event: any) => {
             const value = this.linkTextMap.get(this.router.url);
             this.currentLink = value ? value : this.currentLink;
+            this.menuBarOpen = false;
         });
+    }
+
+    onHamburgerClick(): void {
+        this.menuBarOpen = !this.menuBarOpen;
     }
 }
