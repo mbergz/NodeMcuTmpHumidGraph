@@ -12,15 +12,6 @@ p {
     flex-grow: 1;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0px;
-  } 
-
-li {
-    float: left;
-}
-
 .hamburger {
     display: none;
 }
@@ -29,29 +20,27 @@ li {
     min-height: 50px;
 }
 
+.mobile-links {
+    display: none;
+}
+
 @media only screen and (max-width: 1000px) {
     .hamburger {
         display: block;
     }
 
-    ul {
-        background-color: $primary;
-        z-index: 1;
-    }
-
-    ul.open {
-        margin-top: 95px;
-    }
-
-    ul.open > li:not(:first-child) {
+    .mobile-links.open {
         display: block;
-    }
-
-    li {
+        background-color: $primary;
+        color: white;
         float: none;
     }
+    .mobile-links.open a{
+        display: block;
+        text-align: left;
+    } 
 
-    li:not(:first-child){
+    .top-menu-bar a:not(:first-child){
         display: none;
     }
 
