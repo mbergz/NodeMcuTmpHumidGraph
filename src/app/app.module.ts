@@ -28,6 +28,7 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { LogViewerComponent } from './log-viewer/log-viewer.component';
 import { GraphOptionsComponent } from './graph/graph-options/graph-options.component';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { GraphOptionsComponent } from './graph/graph-options/graph-options.compo
     MatInputModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    DeviceDetectorModule.forRoot()
   ],
   providers: [
     {

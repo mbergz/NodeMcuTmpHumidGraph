@@ -9,6 +9,7 @@ import { fromEvent, Subscription, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { timer, Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil, catchError, finalize } from 'rxjs/operators';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class GraphComponent implements OnInit {
 
   constructor(
     private logReader: LogReaderService,
+    private deviceService: DeviceDetectorService,
     //private canvajsJsService: CanvjasJsService,
     //@Inject(DOCUMENT) private readonly document: any
   ) {
@@ -46,22 +48,7 @@ export class GraphComponent implements OnInit {
         minimum: this.getFromDate(),
         maximum: this.getToDate()
       },
-      axisY: [{
-        title: 'Humidity',
-        lineColor: '#C24642',
-        tickColor: '#C24642',
-        labelFontColor: '#C24642',
-        titleFontColor: '#C24642',
-        suffix: '%'
-      },
-      {
-        title: 'Temperature',
-        lineColor: '#369EAD',
-        tickColor: '#369EAD',
-        labelFontColor: '#369EAD',
-        titleFontColor: '#369EAD',
-        suffix: '°C'
-      }],
+      axisY: [this.getAxisYDataForHumid(), this.getAxisyDataForTemp()],
       toolTip: {
         shared: true,
       },
@@ -143,8 +130,8 @@ export class GraphComponent implements OnInit {
       this.subscription.unsubscribe();
     }
     this.subscription = timer(0, newInterval)
-    .pipe(
-      switchMap(() => this.logReader.readFile()))
+      .pipe(
+        switchMap(() => this.logReader.readFile()))
       .subscribe(log => this.handleLogData(log));
   }
 
@@ -152,12 +139,54 @@ export class GraphComponent implements OnInit {
     this.isGraphLoading = true;
 
     this.logReader.readFile()
-    .subscribe(log => {
+      .subscribe(log => {
         this.isGraphLoading = false;
         this.handleLogData(log);
-    }, error =>  {
-      console.log(error);
-    });
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  private getAxisYDataForHumid(): any {
+    if (this.deviceService.isMobile()) {
+      return {
+        labelFontSize: 10,
+        lineColor: '#C24642',
+        tickColor: '#C24642',
+        labelFontColor: '#C24642',
+        titleFontColor: '#C24642',
+        suffix: '%'
+      };
+    }
+    return {
+      title: 'Humidity',
+      lineColor: '#C24642',
+      tickColor: '#C24642',
+      labelFontColor: '#C24642',
+      titleFontColor: '#C24642',
+      suffix: '%'
+    }
+  }
+
+  private getAxisyDataForTemp(): any {
+    if (this.deviceService.isMobile()) {
+      return {
+        labelFontSize: 10,
+        lineColor: '#369EAD',
+        tickColor: '#369EAD',
+        labelFontColor: '#369EAD',
+        titleFontColor: '#369EAD',
+        suffix: '°C'
+      };
+    }
+    return {
+      title: 'Temperature',
+      lineColor: '#369EAD',
+      tickColor: '#369EAD',
+      labelFontColor: '#369EAD',
+      titleFontColor: '#369EAD',
+      suffix: '°C'
+    };
   }
 
   private handleLogData(log: string) {
