@@ -1,7 +1,6 @@
 .flex {
     flex: 1 1 auto;
     height: 75vh;
-    margin-top: 10px;
  }
 
  .scrollable {
@@ -26,4 +25,10 @@
     right: 50%;
     z-index: 1;
 }
+
+@media only screen and (max-width: 1000px) {
+    p {
+        font-size: 0.7em;
+    }
+  }
 

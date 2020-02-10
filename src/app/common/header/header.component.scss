@@ -24,31 +24,6 @@ p {
     display: none;
 }
 
-@media only screen and (max-width: 1000px) {
-    .hamburger {
-        display: block;
-    }
-
-    .mobile-links.open {
-        display: block;
-        background-color: $primary;
-        color: white;
-        float: none;
-    }
-    .mobile-links.open a{
-        display: block;
-        text-align: left;
-    } 
-
-    .top-menu-bar a:not(:first-child){
-        display: none;
-    }
-
-    .version-number, .sub-row{
-        display: none;
-    }
-}
-
 a {
     margin-right: 10px;
     text-decoration: none;
@@ -68,4 +43,29 @@ a, a:visited, a:hover, a:active {
 }
 .sub-row {
     background-image: linear-gradient(#283593, $primary 17%, $primary);
+}
+
+@media only screen and (max-width: 1000px) {
+    .hamburger {
+        display: block;
+    }
+
+    .mobile-links.open {
+        display: block;
+        background-color: $primary;
+        color: white;
+        float: none;
+    }
+    .mobile-links.open a{
+        display: block;
+        text-align: left;
+    }
+
+    .top-menu-bar a:not(:first-child){
+        display: none;
+    }
+
+    .version-number, .sub-row{
+        display: none;
+    }
 }

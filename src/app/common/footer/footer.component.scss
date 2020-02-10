@@ -1,7 +1,9 @@
 @import "~_variables.scss";
+
 .footer {
   background-color: $primary;
 }
+
 .footer > p {
   color: white;
   font-size: 0.65em;
@@ -10,4 +12,14 @@
 
 .mat-toolbar {
   height: 50px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .mat-toolbar {
+    height: 25px;
+  }
+
+  .footer > p {
+    font-size: 0.5em;
+  }
 }

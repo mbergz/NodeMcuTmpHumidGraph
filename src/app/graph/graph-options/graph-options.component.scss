@@ -19,12 +19,6 @@ mat-form-field {
     display:flex;
 }
 
-@media only screen and (max-width: 1000px) {
-    .flex-container {
-        flex-direction: column;
-    }
-}
-
 .fetch-btn {
     margin-top: 40%;
     padding: 10px;
@@ -45,4 +39,34 @@ fieldset {
 legend {
     color: $primary;
     text-align: left;
+}
+
+@media only screen and (max-width: 1000px) {
+    .flex-container {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    fieldset {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .fetch-btn {
+        margin-top: 10%;
+        padding: 0px;
+    }
+
+    legend, mat-form-field {
+        transform: scale(0.9);
+    }
+
+    input, p {
+        font-size: 0.9em;
+    }
+
+    mat-form-field {
+        width: 100px;
+    }
+
 }

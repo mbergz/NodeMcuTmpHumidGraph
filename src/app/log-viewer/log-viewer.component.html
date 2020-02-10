@@ -1,9 +1,9 @@
 <div class="outer">
-    <mat-card 
+    <mat-card
         class="flex"
         *ngIf="logReaderService$ | async as log; else loading">
         <div class="scrollable">
-            {{log}}
+            <p>{{log}}</p>
         </div>
     </mat-card>
     <ng-template #loading>
