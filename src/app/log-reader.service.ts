@@ -23,8 +23,7 @@ export class LogReaderService {
   }
 
   getTest(): string {
-    return `
-  2019-10-26-17-26-33:tmpInside=23.60,humidInside=60.50,tmpOutside=23.60,humidOutside=59.30,fanActive=0,heaterActive=0
+    return `  2019-10-26-17-26-33:tmpInside=23.60,humidInside=60.50,tmpOutside=23.60,humidOutside=59.30,fanActive=0,heaterActive=0
   2019-10-26-17-26-59:tmpInside=23.60,humidInside=60.40,tmpOutside=23.60,humidOutside=59.10,fanActive=0,heaterActive=0
   2019-10-26-17-27-26:tmpInside=23.60,humidInside=60.10,tmpOutside=23.60,humidOutside=58.90,fanActive=0,heaterActive=0
   2019-10-26-17-27-52:tmpInside=23.60,humidInside=60.00,tmpOutside=23.60,humidOutside=58.80,fanActive=0,heaterActive=0
